@@ -7,23 +7,18 @@ using System.Threading.Tasks;
 
 namespace task1
 {
-    internal class ParallelArray
+     class ParallelArray
     {
         private int[] data;
         private int compare;
         private int swaps;
         private Stopwatch timer;
 
-        public ParallelArray()
+        public ParallelArray(int[] data)
         {
-            Random elem = new Random();
-            int size = elem.Next(100, 10001);
-            data = new int[size];
-            compare = 0;
+            this.data = data;
             swaps = 0;
-
-            for (int i = 0; i < size; ++i)
-                data[i] = elem.Next(0, 100);
+            compare = 0;
         }
 
         public string getData()
@@ -53,7 +48,7 @@ namespace task1
         public bool isSorted()
         {
             for (int i = 1; i < data.Length; ++i)
-                if ((data[i - 1] > data[i]) /*|| (data[i - 1] < data[i])*/)
+                if (data[i - 1] > data[i])
                     return false;
             
             return true;
@@ -75,9 +70,9 @@ namespace task1
         public void bubbleSort()
         {
             timer = Stopwatch.StartNew();
-            for (int i = 0; i < data.Length - 1; ++i)
+            for (int i = 0; i < data.Length; ++i)
             {
-                for (int j = 0; j < data.Length - i - 1; ++j)
+                for (int j = 0; j < data.Length - 1; ++j)
                 {
                     ++compare;
                     if (data[j] > data[j + 1])
@@ -127,12 +122,12 @@ namespace task1
         public void stupidSort()
         {
             timer = Stopwatch.StartNew();
-            for (int i = 1; i < data.Length - 1; ++i)
+            for (int i = 0; i < data.Length - 1; ++i)
             {
                 ++compare;
-                if (data[i - 1] > data[i])
+                if (data[i] > data[i + 1])
                 {
-                    swap(ref data[i - 1], ref data[i]);
+                    swap(ref data[i], ref data[i + 1]);
                     i = 0;
                 }
             }
